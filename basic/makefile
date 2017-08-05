@@ -16,6 +16,7 @@ writedisk:
 #
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" speed.bas speed.bas --filter=ascii --ascii=A --ftype=0
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" vect.bas vect.bas --filter=ascii --ascii=A --ftype=0
+	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" strfmt.bas strfmt.bas --filter=ascii --ascii=A --ftype=0
 
 mame:
 # Run from the mame directory
