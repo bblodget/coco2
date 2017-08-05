@@ -1,12 +1,9 @@
-SOURCE=speed.bas
-DISK=BASIC0.DSK
+DISK=DISK0.DSK
 MAME_DIR=/home/brandonb/projects/mame
 CURR_DIR=$(shell pwd)
+DISK_DIR=$(CURR_DIR)/../disks
 
-all: $(SOURCE) writedisk mame
-
-makedisk:
-	imgtool create coco_jvc_rsdos $(DISK) 
+all: writedisk mame
 
 writedisk:
 # --asci = [A=ASCII, B=binary]
@@ -17,11 +14,12 @@ writedisk:
 #  		3 = editor source file
 # --filter=ascii : Translate line endings from PC to coco2
 #
-	imgtool put coco_jvc_rsdos $(DISK) $(SOURCE) $(SOURCE) --filter=ascii --ascii=A --ftype=0
+	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" speed.bas speed.bas --filter=ascii --ascii=A --ftype=0
+	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" vect.bas vect.bas --filter=ascii --ascii=A --ftype=0
 
 mame:
 # Run from the mame directory
 	cd $(MAME_DIR); \
-	mame64 coco2 -skip_gameinfo -window -flop1 $(CURR_DIR)/$(DISK)
+	mame64 coco2 -skip_gameinfo -window -flop1 "$(DISK_DIR)/$(DISK)"
 
 
