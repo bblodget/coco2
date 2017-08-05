@@ -1,0 +1,13 @@
+lwasm bubble_sort.asm --6809 --list --symbols --6800compat --output=sort.bin --format=decb
+
+imgtool create coco_jvc_rsdos 180K-RS.DSK 
+
+imgtool put coco_jvc_rsdos 180K-RS.DSK sort.bin sort.bin
+
+# Run from the mame directory
+mame64 coco2 -skip_gameinfo -window -flop1 ~/projects/coco2/asm/bubble_sort/180K-RS.DSK
+
+
+
+
+
