@@ -1,4 +1,4 @@
-SOURCES=sort.asm
+SOURCES=sort.asm speed.asm
 BINARIES=$(SOURCES:.asm=.bin)
 MAME_DIR=/home/brandonb/projects/mame
 CURR_DIR=$(shell pwd)
@@ -10,6 +10,9 @@ all: $(SOURCES) $(BINARIES) writedisk mame
 sort.bin: sort.asm
 	lwasm sort.asm --6809 --list --symbols --6800compat --output=sort.bin --format=decb
 
+speed.bin: speed.asm
+	lwasm speed.asm --6809 --list --symbols --6800compat --output=speed.bin --format=decb
+
 writedisk:
 # --asci = [A=ASCII, B=binary]
 # --ftype 
@@ -20,6 +23,7 @@ writedisk:
 # --filter=ascii : Translate line endings from PC to coco2
 #
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" sort.bin sort.bin
+	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" speed.bin speed.bin
 
 debug: $(SOURCES) $(BINARIES)
 # run in debug mode
