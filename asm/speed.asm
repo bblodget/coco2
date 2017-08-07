@@ -11,6 +11,7 @@ nxtpos  sta     ,x+        put letter on screen
         bne     nxtpos     loop until last pos
         cmpa    #90        test with Z
         bne     inclet     get the next letter
-loop    jmp     loop        loop here
+;loop    jmp     loop        loop here
+        rts
         end
 

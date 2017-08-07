@@ -17,7 +17,8 @@ bub030  cmpx    #$400+511   test for screen end
         inc     passno      increment passno
         cmpy    #0          test change flag
         bne     bub010      go if change occurred
-loop    jmp     loop        loop here
+;loop    jmp     loop        loop here
+        rts
 passno  fcb     0           passno
         end
 
