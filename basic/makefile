@@ -19,8 +19,6 @@ writedisk:
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" strfmt.bas strfmt.bas --filter=ascii --ascii=A --ftype=0
 
 mame:
-# Run from the mame directory
-	cd $(MAME_DIR); \
 	mame64 coco2 -skip_gameinfo -window -flop1 "$(DISK_DIR)/$(DISK)"
 
 
