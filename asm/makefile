@@ -1,4 +1,4 @@
-SOURCES=sort.asm speed.asm prob41.asm dtc.asm itc.asm
+SOURCES=sort.asm speed.asm prob41.asm dtc.asm itc.asm forth.asm
 BINARIES=$(SOURCES:.asm=.bin)
 MAME_DIR=/home/brandonb/projects/mame
 CURR_DIR=$(shell pwd)
@@ -22,6 +22,10 @@ dtc.bin: dtc.asm
 itc.bin: itc.asm
 	lwasm itc.asm --6809 --list --symbols --6800compat --output=itc.bin --format=decb
 
+forth.bin: forth.asm
+	lwasm forth.asm --6809 --list --symbols --6800compat --output=forth.bin --format=decb
+	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" forth.bin forth.bin
+
 writedisk:
 # --asci = [A=ASCII, B=binary]
 # --ftype 
@@ -36,6 +40,7 @@ writedisk:
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" prob41.bin prob41.bin
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" dtc.bin dtc.bin
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" itc.bin itc.bin
+	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" forth.bin forth.bin
 
 debug: $(SOURCES) $(BINARIES)
 # run in debug mode
