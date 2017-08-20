@@ -1,5 +1,6 @@
-; file: itc.asm
+; file: itc2.asm
 ; Indirect Threading Code Example
+; docol and exit defined.
 
 NEXT MACRO NOEXPAND
             ldx     ,y++
@@ -30,6 +31,10 @@ code_sub_c  lda     #67     load C into accum
             sta     ,x      place C at pos 2
             NEXT
 
+exit        .word   code_exit
+code_exit   pulu    y       restore y (nxt inst) from stack
+            NEXT
+
 return      .word   code_return
 code_return rts
 
@@ -37,7 +42,7 @@ word_abc    .word   docol
             .word   sub_a
             .word   sub_b
             .word   sub_c
-            .word   return
+            .word   exit
 
 docol                       ; The interpreter!
             pshu    y       Push nxt inst on stack
