@@ -35,11 +35,11 @@ writedisk:
 #  		3 = editor source file
 # --filter=ascii : Translate line endings from PC to coco2
 #
-	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" sort.bin sort.bin
-	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" speed.bin speed.bin
-	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" prob41.bin prob41.bin
-	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" dtc.bin dtc.bin
-	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" itc.bin itc.bin
+#	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" sort.bin sort.bin
+#	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" speed.bin speed.bin
+#	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" prob41.bin prob41.bin
+#	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" dtc.bin dtc.bin
+#	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" itc.bin itc.bin
 	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" forth.bin forth.bin
 
 debug: $(SOURCES) $(BINARIES)

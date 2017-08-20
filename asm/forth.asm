@@ -38,7 +38,7 @@ start       org     $0fa0   Start at 4000 dec
             ldy     #prog   Next word to execute
             NEXT
 
-prog        .word   word_abc
+prog        .word   sum
             .word   return
 
 docol                       ; The interpreter!
@@ -75,6 +75,13 @@ docol                       ; The interpreter!
             .word   sub_c
             .word   EXIT
 
+    defword "sum",3,0,sum
+            .word   LIT,$1234
+            .word   LIT,$2345
+            .word   ADD
+            .word   DROP
+            .word   EXIT
+
     ; EXIT from Forth word
     defcode "EXIT",4,0,EXIT
             pulu    y       restore y (nxt inst) from stack
@@ -109,6 +116,13 @@ docol                       ; The interpreter!
     defcode "LIT",3,0,LIT
             ldx     ,y++    copy y into x, then inc y
             pshs    x       push x
+            NEXT
+
+    ; ADD top two items on stack
+    defcode "+",1,0,ADD
+            puls    d       pop top of stack into d
+            addd    ,s      add new top of stack to d
+            std     ,s      write d to top of stack
             NEXT
 
 end
