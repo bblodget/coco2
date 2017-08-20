@@ -31,6 +31,8 @@ NEXT MACRO NOEXPAND
             jmp     [,x]
             ENDM
 
+rstack      org     $0f9e   Put return stack before code
+
 start       org     $0fa0   Start at 4000 dec
             ldu     #rstack
             ldy     #prog   Next word to execute
@@ -77,9 +79,6 @@ docol                       ; The interpreter!
             tfr     x,y     Y addr start of forth word
             NEXT
 
-
-
-rstack      org     $1040
 
 end
 
