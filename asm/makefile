@@ -24,7 +24,7 @@ itc.bin: itc.asm
 
 forth.bin: forth.asm
 	lwasm forth.asm --6809 --list --symbols --6800compat --output=forth.bin --format=decb
-	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" forth.bin forth.bin
+#	imgtool put coco_jvc_rsdos "$(DISK_DIR)/$(DISK)" forth.bin forth.bin
 
 writedisk:
 # --asci = [A=ASCII, B=binary]

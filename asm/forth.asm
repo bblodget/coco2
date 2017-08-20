@@ -41,6 +41,11 @@ start       org     $0fa0   Start at 4000 dec
 prog        .word   word_abc
             .word   return
 
+docol                       ; The interpreter!
+            pshu    y       Push nxt inst on stack
+            leax    2,x     Add 2 to x to skip codeword
+            tfr     x,y     Y addr start of forth word
+            NEXT
 
     defcode "sub_a",5,0,sub_a
             lda     #65     load A into accum
@@ -60,9 +65,6 @@ prog        .word   word_abc
             sta     ,x      place C at pos 2
             NEXT
 
-            defcode "exit",4,0,exit
-            pulu    y       restore y (nxt inst) from stack
-            NEXT
 
     defcode "return",6,0,return
             rts
@@ -71,14 +73,43 @@ prog        .word   word_abc
             .word   sub_a
             .word   sub_b
             .word   sub_c
-            .word   exit
+            .word   EXIT
 
-docol                       ; The interpreter!
-            pshu    y       Push nxt inst on stack
-            leax    2,x     Add 2 to x to skip codeword
-            tfr     x,y     Y addr start of forth word
+    ; EXIT from Forth word
+    defcode "EXIT",4,0,EXIT
+            pulu    y       restore y (nxt inst) from stack
             NEXT
 
+    ; TODO (brandon) : Need to save s reg at start
+    ; probably should add protection not to drop to far.
+    ; Drop top of the stack
+    defcode "DROP",4,0,DROP
+            leas    2,s     Add 2 to s reg
+            NEXT
+
+    ; SWAP top two elemnts on stack
+    defcode "SWAP",4,0,SWAP
+            tfr     y,d     tmp save y in d
+            puls    x       top element in x
+            puls    y       2nd element in y
+            pshs    x       push x
+            pshs    y       push y
+            tfr     d,y     restore y
+            NEXT
+
+    ; DUPlicates the top value of the statck
+    defcode "DUP",4,0,DUP
+            ldx     ,s      copy top of stack into x
+            pshs    x       push x, to make copy
+            NEXT
+
+    ; Next value is a literal 
+    ; y points to the next command, but in this case it points to the next
+    ; literal 16 bit integer. 
+    defcode "LIT",3,0,LIT
+            ldx     ,y++    copy y into x, then inc y
+            pshs    x       push x
+            NEXT
 
 end
 
